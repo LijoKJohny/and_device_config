@@ -49,7 +49,9 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     hardware/libhardware_legacy/audio/audio_policy.conf:system/etc/audio_policy.conf \
-
+    device/generic/goldfish/compatibility_matrix.xml:system/vendor/compatibility_matrix.xml \
+    device/generic/goldfish/camera/media_codecs.xml:system/etc/media_codecs.xml \
+    device/generic/goldfish/data/etc/apns-conf.xml:system/etc/apns-conf.xml \
 
 # Keyboard and layout files
 PRODUCT_COPY_FILES += \
@@ -112,6 +114,7 @@ PRODUCT_PACKAGES += \
     audio.usb.default \
     audio.a2dp.default \
 
+#Audio HAL
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
     android.hardware.audio.effect@2.0-impl \
@@ -139,15 +142,15 @@ PRODUCT_PACKAGES += \
 
 #Touchcreen configuration
 PRODUCT_COPY_FILES += \
+    frameworks/base/data/keyboards/AVRCP.idc:system/usr/idc/AVRCP.idc \
+    frameworks/base/data/keyboards/qwerty.idc:system/usr/idc/qwerty.idc \
+    frameworks/base/data/keyboards/qwerty2.idc:system/usr/idc/qwerty2.idc \
     device/generic/qnx_arm64/idc/AlpsPS_2_ALPS_DualPoint_TouchPad.idc:system/usr/idc/AlpsPS_2_ALPS_DualPoint_TouchPad.idc \
     device/generic/qnx_arm64/idc/AlpsPS_2_ALPS_GlidePoint.idc:system/usr/idc/AlpsPS_2_ALPS_GlidePoint.idc \
-    device/generic/qnx_arm64/idc/AVRCP.idc:system/usr/idc/AVRCP.idc \
     device/generic/qnx_arm64/idc/ETPS_2_Elantech_Touchpad.idc:system/usr/idc/ETPS_2_Elantech_Touchpad.idc \
     device/generic/qnx_arm64/idc/IDEACOM__IDC_6680.idc:system/usr/idc/IDEACOM__IDC_6680.idc \
     device/generic/qnx_arm64/idc/Microsoft_Surface_Type_Cover_UNKNOWN.idc:system/usr/idc/Microsoft_Surface_Type_Cover_UNKNOWN.idc \
     device/generic/qnx_arm64/idc/N-Trig_MultiTouch.idc:system/usr/idc/N-Trig_MultiTouch.idc \
-    device/generic/qnx_arm64/idc/qwerty.idc:system/usr/idc/qwerty.idc \
-    device/generic/qnx_arm64/idc/qwerty2.idc:system/usr/idc/qwerty2.idc \
     device/generic/qnx_arm64/idc/SynPS_2_Synaptics_TouchPad.idc:system/usr/idc/SynPS_2_Synaptics_TouchPad.idc
 	
 PRODUCT_COPY_FILES += \
@@ -164,6 +167,7 @@ PRODUCT_PACKAGES += \
 #GPS
 PRODUCT_PACKAGES += \
     gps.default \
+    clatd.conf \
 
 
 #Camera
@@ -211,7 +215,6 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@2.0-impl \
     android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.composer@2.1-impl \
-    libion \
     libdrm \
     libgbm \
     hwcomposer.drm \
@@ -220,9 +223,11 @@ PRODUCT_PACKAGES += \
     libGLES_mesa \
     gallium_dri \
     virtio_gpu_dri \
-    libdrm_platform \
     libgralloc_drm \
-
+    libfwdlockengine \
+    libGLES_android \
+#    libdrm_platform \
+#    libion \
 
 # Render Script
 PRODUCT_PACKAGES += \
@@ -348,5 +353,12 @@ endif
 # ----------------------------------------------------------------------
 $(call inherit-product-if-exists, frameworks/base/data/fonts/fonts.mk)
 $(call inherit-product-if-exists, device/generic/qnx_arm64/fonts.mk)
+$(call inherit-product-if-exists, external/svox/pico/lang/PicoLangDeDeInSystem.mk)
+$(call inherit-product-if-exists, external/svox/pico/lang/PicoLangDefaultInSystem.mk)
+$(call inherit-product-if-exists, external/svox/pico/lang/PicoLangEnGBInSystem.mk)
+$(call inherit-product-if-exists, external/svox/pico/lang/PicoLangEnUsInSystem.mk)
+$(call inherit-product-if-exists, external/svox/pico/lang/PicoLangEsEsInSystem.mk)
+$(call inherit-product-if-exists, external/svox/pico/lang/PicoLangFrFrInSystem.mk)
+$(call inherit-product-if-exists, external/svox/pico/lang/PicoLangItItInSystem.mk)
 $(call inherit-product-if-exists, device/generic/qnx_arm64/modules.mk)
 $(call inherit-product, build/target/product/core.mk)
